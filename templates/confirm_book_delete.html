@@ -1,0 +1,20 @@
+{% extends 'admin_home.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Delete Book{% endblock %}</title>
+</head>
+<body>
+{% block profile_body %}
+    <div class="container text-center">
+    <h2 class="alert alert-info">Delete Book?</h2><br>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes" class="btn btn-danger">
+        <a href="{% url 'admin_home' %}"><button class="btn btn-success" type="button">No</button></a>
+    </form>
+    </div>
+{% endblock %}
+</body>
+</html>

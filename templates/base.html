@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content ="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock %}</title>
+    <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+{% block profile_style %}
+
+    {% endblock %}
+</head>
+<body>
+<h1 class="alert alert-danger text-center">Books Library</h1>
+{% block content_body %}
+{% endblock %}
+</body>
+</html>

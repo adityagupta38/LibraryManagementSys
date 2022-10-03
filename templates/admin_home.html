@@ -1,0 +1,55 @@
+{% extends 'base_profile.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Admin Home  {% endblock %}</title>
+</head>
+<body>
+
+    {% block navbar %}
+   <div class=" container">
+<ul class="nav navbar-nav p-2 container">
+    <li class="active"><a href="{% url 'admin_home' %}"><button class="butt"><i class="fa fa-home"></i>  Home</button></a></li>
+    <li><a href="{% url 'add_book' %}"><button class="butt"><i class="fa fa-plus"></i>     Add Books</button></a></li>
+    <li><a href="{% url 'admin_logout' %}"><button class="butt"><i class="fa fa-sign-out"></i>     Logout</button></a></li>
+</ul>
+</div>
+    {% endblock %}
+{% block profile_body %}
+    <div class="container">
+    {% if books %}
+            <div class="container-fluid mt-5">
+         <table class="table table-hover table-responsive table-dark">
+        <thead>
+        <tr><th colspan="7"><h4 class=" alert alert-danger text-center">BOOKS</h4></th></tr>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th colspan="3" style="text-align: center">Click To Perform Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.description }}</td>
+                <td><a  class="button-block" href="{% url 'book_detail' book.id %}">Details</a></td>
+                <td><a  class="button-block" href="{% url 'update_book' book.id %}">Update</a></td>
+                <td><a class="button-block" href="{% url 'delete_book' book.id %}">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+        <div id="center">
+        <h2 class="alert alert-dark text-center" style="margin-top: 10%;  font-family: 'Helvetica Neue, Helvetica, Arial, sans-serif'">No Books Added Yet!</h2>
+        </div>
+{% endif%}
+    </div>
+{% endblock %}
+</div>
+</body>
+</html>

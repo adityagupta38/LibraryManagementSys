@@ -1,0 +1,19 @@
+{% extends 'admin_home.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Book Detail{% endblock %}</title>
+</head>
+<body>
+{% block profile_body %}
+<div class="container-fluid text-center">
+<h3 class="alert alert-success">
+    Title: {{ book.title }}<br>
+    Author: {{ book.author }}<br>
+    Desscription: {{ book.description }}<br>
+</h3>
+</div>
+{% endblock %}
+</body>
+</html>

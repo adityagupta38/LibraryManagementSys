@@ -1,0 +1,46 @@
+{% extends 'admin_home.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Add Books {% endblock %}</title>
+</head>
+<body>
+{% load widget_tweaks %}
+
+    {% block profile_body %}
+        <div class="container-fluid center w-75 bg-light bg-opacity-75">
+        <form method="POST">
+            {% csrf_token %}
+            <h2 class="alert-primary text-center">Add/Update Books</h2><br>
+            <!--form error section -->
+        <!-- context variable for showing models unique constraint errpr-->
+        {% if msg %}
+            <h3 class="alert-danger text-sm-center">{{ msg }}</h3><br>
+        {% endif %}
+        <!-- context variable for showing form validation error-->
+            {%if errors %}
+                {% for error in errors.values %}
+                <h3 class="alert-danger text-sm-center">{{error}}</h3>
+                {% endfor %}
+            {%endif%}
+            <!--end of form error section -->
+
+            <!-- form fields section -->
+           <div class="row">
+               <div class="col-sm-12">{% render_field form.title class="form-control" placeholder="Enter title of book" %}</div>
+           </div><br>
+            <div class="row">
+               <div class="col-sm-12">{% render_field form.author class="form-control" placeholder="Enter author name" %}</div>
+           </div><br>
+             <div class="row">
+               <div class="col-sm-12">{% render_field form.description class="form-control" placeholder="Enter book description" %}</div>
+           </div><br>
+        <div class="row">
+            <div class="col-sm-12 text-center"><input type="submit" class="btn btn-primary" value="Submit"></div>
+        </div>
+        </form>
+       </div>
+     {% endblock %}
+</body>
+</html>
