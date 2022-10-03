@@ -25,7 +25,8 @@ router.register('books', apiviews.BooksApi, basename='books')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.admin_login, name='admin_login'),
+    path('', views.home_page, name='home'),
+    path('adminlogin', views.admin_login, name='admin_login'),
     path('books_api', include('rest_framework.urls')),
     path('', include(router.urls)),
     path('adminregister', views.admin_register, name='admin_register'),
@@ -35,4 +36,5 @@ urlpatterns = [
     path('updatebook<int:pk>', views.update_book, name='update_book'),
     path('bookdetail<int:pk>', views.book_detail, name='book_detail'),
     path('deletebook<int:pk>', views.delete_book, name='delete_book'),
+    path('bookslist', views.books_lib, name='books_list')
 ]

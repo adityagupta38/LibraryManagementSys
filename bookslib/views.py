@@ -6,6 +6,10 @@ from .models import Books, User
 # Create your views here.
 
 
+def home_page(reques):
+    return render(reques, 'home.html')
+
+
 def admin_login(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -28,7 +32,7 @@ def admin_register(request):
             if form.is_valid():
                 form.save()
                 messages.add_message(request, messages.SUCCESS, f'{request.POST["username"]} is Successfully Registered')
-                return redirect('/')
+                return redirect('/adminlogin')
             return render(request, 'admin_registeration_form.html', {'form': form, 'errors': form.errors})
         msg = f'{request.POST["username"]} Is already Registered'
         return render(request, 'admin_registeration_form.html', {'form': form, 'msg': msg})
@@ -46,7 +50,7 @@ def add_book(request):
             return render(request, 'add_book_form.html', {'form': form, 'errors': form.errors})
         form = BooksForm()
         return render(request, 'add_book_form.html', {'form': form})
-    return redirect('/')
+    return redirect('/adminlogin')
 
 
 def update_book(request, pk):
@@ -60,21 +64,21 @@ def update_book(request, pk):
         instance = Books.objects.get(pk=pk)
         form = BooksForm(instance=instance)
         return render(request, 'add_book_form.html', {'form': form})
-    return redirect('/')
+    return redirect('/adminlogin')
 
 
 def admin_home(request):
     if 'uname' in request.session:
         books = Books.objects.all()
         return render(request, 'admin_home.html', {'books': books})
-    return redirect('/')
+    return redirect('/adminlogin')
 
 
 def book_detail(request, pk):
     if 'uname' in request.session:
         book = Books.objects.get(pk=pk)
         return render(request, 'book_detail_page.html' , {'book': book})
-    return redirect('/')
+    return redirect('/adminlogin')
 
 def delete_book(request, pk):
     if 'uname' in request.session:
@@ -83,10 +87,14 @@ def delete_book(request, pk):
             book.delete()
             return redirect('/adminhome')
         return render(request, 'confirm_book_delete.html')
-    return redirect('/')
+    return redirect('/adminlogin')
 
+
+def books_lib(request):
+    books = Books.objects.all()
+    return render(request, 'books_list_studentview.html', {'books': books})
 
 def admin_logout(request):
     if 'uname' in request.session:
         del request.session['uname']
-    return redirect('/')
+    return redirect('/adminlogin')
